@@ -33,6 +33,14 @@ pip install -r requirements.txt
    - Baixe o arquivo JSON de credenciais
 5. Renomeie o arquivo para `credentials.json` e coloque na pasta do projeto
 
+## Instalação Rápida
+
+### Script de Setup Automático
+```bash
+# Execute o script de setup automático
+./setup.sh
+```
+
 ## Uso
 
 ### Comandos Básicos
@@ -75,12 +83,48 @@ O arquivo CSV exportado contém as seguintes colunas:
 - `taskListTitle`: Nome da lista de tarefas
 - `id`: ID único da tarefa
 
+## Uso com Docker
+
+### Construir a imagem
+```bash
+docker build -t google-tasks-exporter .
+```
+
+### Executar com Docker
+```bash
+# Criar diretório para dados (credenciais e exports)
+mkdir -p ./data
+
+# Copiar suas credenciais para o diretório de dados
+cp credentials.json ./data/
+
+# Executar exportação
+docker run -v $(pwd)/data:/app/data google-tasks-exporter
+
+# Executar com opções específicas
+docker run -v $(pwd)/data:/app/data google-tasks-exporter --summary --output /app/data/minhas_tarefas.csv
+```
+
+## Exemplos de Uso Programático
+
+Consulte o arquivo `example.py` para ver como usar os módulos programaticamente em seus próprios scripts.
+
+```bash
+# Executar exemplo
+python example.py
+```
+
 ## Arquivos do Projeto
 - `main.py`: Script principal da aplicação
 - `google_tasks.py`: Cliente para integração com Google Tasks API
 - `csv_exporter.py`: Módulo de exportação para CSV
 - `config.py`: Configurações da aplicação
 - `requirements.txt`: Dependências do projeto
+- `setup.sh`: Script de instalação automática
+- `example.py`: Exemplo de uso programático
+- `test.py`: Suite de testes
+- `Dockerfile`: Configuração para uso com Docker
+- `credentials.json.template`: Template para credenciais OAuth
 - `credentials.json`: Credenciais OAuth (criado pelo usuário)
 - `token.json`: Token de acesso (gerado automaticamente)
 
